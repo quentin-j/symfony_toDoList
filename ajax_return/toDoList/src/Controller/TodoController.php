@@ -11,7 +11,7 @@ class TodoController extends AbstractController
     /**
      * Liste des tâches
      *
-     * @Route("/todos", name="todo_list")
+     * @Route("/todos", name="todo_list", methods={"GET"})
      */
     public function todoList()
     {
@@ -25,7 +25,7 @@ class TodoController extends AbstractController
     /**
      * Affichage d'une tâche
      *
-     * @Route("/todo/{id}", name="todo_show", requirements={"id" = "\d+"})
+     * @Route("/todo/{id}", name="todo_show", methods={"GET"}, requirements={"id" = "\d+"})
      */
     public function todoShow($id)
     {
@@ -39,7 +39,7 @@ class TodoController extends AbstractController
     /**
      * Changement de statut
      *
-     * @Route("/todo/{id}/{status}", name="todo_set_status", requirements={"id" = "\d+"})
+     * @Route("/todo/{id}/{status}", name="todo_set_status", methods={"GET"}, requirements={"id" = "\d+"})
      */
     public function todoSetStatus($id, $status)
     {
@@ -49,9 +49,7 @@ class TodoController extends AbstractController
     /**
      * Ajout d'une tâche
      *
-     * @Route("/todo/add", name="todo_add")
-     *
-     * La route est définie en POST parce qu'on veut ajouter une ressource sur le serveur
+     * @Route("/todo/add", name="todo_add", methods={"POST"})
      */
     public function todoAdd()
     {
