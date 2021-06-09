@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Model\TodoModel;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class TodoController extends AbstractController
 {
@@ -13,7 +15,7 @@ class TodoController extends AbstractController
      *
      * @Route("/todos", name="todo_list", methods={"GET"})
      */
-    public function todoList()
+    public function todoList() :Response 
     {
         $todos = TodoModel::findAll();
 
@@ -27,7 +29,7 @@ class TodoController extends AbstractController
      *
      * @Route("/todo/{id}", name="todo_show", methods={"GET"}, requirements={"id" = "\d+"})
      */
-    public function todoShow($id)
+    public function todoShow($id) :Response
     {
         $todo = TodoModel::find($id);
 
@@ -41,7 +43,7 @@ class TodoController extends AbstractController
      *
      * @Route("/todo/{id}/{status}", name="todo_set_status", methods={"GET"}, requirements={"id" = "\d+"})
      */
-    public function todoSetStatus($id, $status)
+    public function todoSetStatus($id, $status) :Response
     {
 
     }
@@ -51,8 +53,13 @@ class TodoController extends AbstractController
      *
      * @Route("/todo/add", name="todo_add", methods={"POST"})
      */
-    public function todoAdd()
+    public function todoAdd(Request $request) :Response
     {
-
+        // Récupèrer le nom de la tâche
+        $taskName = $request->request->get('task');
+        // Créer une tâche portant ce nom
+        TodoModel::add($taskName);
+        // on redirige vers la list des tâches
+        return $this->redirectToRoute('todo_list');
     }
 }
