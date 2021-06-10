@@ -56,9 +56,11 @@ class TodoController extends AbstractController
 
         if (false === $jobDone)
         {
-            throw $this->createNotFoundException('La tâche dont vous voulez modifier le status n\'existe pas !');
+            $this->addFlash('danger','La tâche dont vous voulez modifier le status n\'existe pas !');
         }
-
+        else{
+            $this->addFlash('success','La tâche à été modifiée !');
+        }
         // on redirige vers la liste des tâches
         return $this->redirectToRoute('todo_list');
     }
@@ -72,8 +74,11 @@ class TodoController extends AbstractController
     {
         // Récupèrer le nom de la tâche
         $taskName = $request->request->get('task');
+
         // Créer une tâche portant ce nom
         TodoModel::add($taskName);
+
+        $this->addFlash('success', 'votre tâche a était ajouté !');
         // on redirige vers la list des tâches
         return $this->redirectToRoute('todo_list');
     }
@@ -91,6 +96,14 @@ class TodoController extends AbstractController
         // supprimer la tâche portant ce nom
         $taskDelete = TodoModel::delete($taskName);
 
+        if ($taskDelete)
+        {
+            $this->addFlash('success','La tâche supprimée !');
+        }
+        else{
+            $this->addFlash('danger','La tâche que vous souhaitez supprimer n\'existe pas !');
+        }
+
         // on redirige vers la list des tâches
         return $this->redirectToRoute('todo_list');
     }
@@ -104,6 +117,8 @@ s     *
     {
         // réinitialiser les tâches portant ce nom
         TodoModel::reset();
+
+        $this->addFlash('success','Les tâches ont été réinisalisée !');
 
         // on redirige vers la list des tâches
         return $this->redirectToRoute('todo_list');
