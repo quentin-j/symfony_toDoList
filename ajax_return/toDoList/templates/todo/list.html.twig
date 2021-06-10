@@ -12,9 +12,8 @@
 
     <li class="list-group-item">
 
-        <!-- TODO: delete-->
-        <form action="" method="post">
-            <button class="btn btn-xs btn-link" type="submit" name="delete"><span class="glyphicon glyphicon-remove"></span></button>
+        <form action="{{path('todo_delete')}}" method="post">
+            <button class="btn btn-xs btn-link" type="submit" value="{{ key }}" name="delete"><span class="glyphicon glyphicon-remove"></span></button>
         </form>
 
         <span>
@@ -54,4 +53,5 @@
 
 <hr>
 
+<a href="{{ path('todo_reset') }}">réinitialiser les tâches</a>
 {% endblock %}

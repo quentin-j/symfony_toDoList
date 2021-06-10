@@ -26,6 +26,14 @@ class TodoModel
         ],
     ];
 
+    public static function reset ()
+    {
+        // on vrifie que notre session est bien initialisée
+        self::checkSession();
+        // on écrase toutes les tâches avec les tâches initiales
+        self::$session->set('todos', self::$initTodos);
+    }
+
     /**
      * 1. Initialise la session si non active
      * 2. Attribuer les todos par défaut si les données sont vides
