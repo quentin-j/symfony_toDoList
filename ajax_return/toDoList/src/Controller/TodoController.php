@@ -41,11 +41,16 @@ class TodoController extends AbstractController
     /**
      * Changement de statut
      *
-     * @Route("/todo/{id}/{status}", name="todo_set_status", methods={"GET"}, requirements={"id" = "\d+"})
+     * @Route("/todo/{id}/{status}", name="todo_set_status", methods={"GET"}, requirements={"id" = "\d+", "status" = "done|undone"})
      */
     public function todoSetStatus($id, $status) :Response
     {
+        $jobDone = TodoModel::setStatus($id, $status);
 
+
+
+        // on redirige vers la liste des tâches
+        return $this->redirectToRoute('todo_list');
     }
 
     /**
