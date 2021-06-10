@@ -14,12 +14,24 @@
 <body>
     <header class="container">
         <h1>TodoApp</h1>
+        {# nav méthode 1
         <nav>
             <ul class="nav nav-tabs">
-                <li class="active">
+                <li class="{% if app.request.get('_route')  == 'homepage' %}active{% endif %}">
                     <a href="{{ path('homepage') }}">A propos</a>
                 </li>
-                <li>
+                <li class="{% if app.request.get('_route')  == 'todo_list' %}active{% endif %}">
+                    <a href="{{ path('todo_list') }}">Todos</a>
+                </li>
+            </ul>
+           
+        </nav> #}
+        <nav>
+          <ul class="nav nav-tabs">
+                <li class="{% block block1 %}{% endblock %}">
+                    <a href="{{ path('homepage') }}">A propos</a>
+                </li>
+                <li class="{% block block2 %}{% endblock %}">
                     <a href="{{ path('todo_list') }}">Todos</a>
                 </li>
             </ul>
